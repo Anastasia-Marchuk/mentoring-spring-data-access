@@ -12,7 +12,7 @@
 
     <import resource="classpath*:configSpring.xml"/>
 
-    <context:component-scan base-package="by.prohor"/>
+    <context:component-scan base-package="com.mentoring.amarchuk.tickets"/>
     <mvc:annotation-driven/>
 
     <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
@@ -33,12 +33,12 @@
     <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
         <property name="classesToBeBound">
             <list>
-                <value>by.prohor.model.User</value>
-                <value>by.prohor.service.parser.UserDto</value>
+                <value>com.mentoring.amarchuk.tickets.model.User</value>
+                <value>com.mentoring.amarchuk.tickets.service.parser.UserDto</value>
             </list>
         </property>
     </bean>
-    <bean id="objXmlmapper" class="by.prohor.service.parser.ConverterXml">
+    <bean id="objXmlmapper" class="com.mentoring.amarchuk.tickets.service.parser.ConverterXml">
         <property name="unmarshaller" ref="jaxb2Marshaller"/>
     </bean>
 
@@ -46,7 +46,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:/home/prohor/IdeaProjects/Spring_Intro/H2/TodoListDB"/>
+        <property name="url" value="jdbc:h2:/home/anastasia/EpamMentoringProgram/mentoring-spring-db/src/main/resources/H2/tickets"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
@@ -64,13 +64,14 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="connection.pool_size">2</prop>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.default_schema">public</prop>
             </props>
         </property>
 
-        <property name="packagesToScan" value="by.prohor.model"/>
+        <property name="packagesToScan" value="com.mentoring.amarchuk.tickets.model"/>
     </bean>
 
-    <jpa:repositories base-package="by.prohor.dao" entity-manager-factory-ref="entityManagerFactory"
+    <jpa:repositories base-package="com.mentoring.amarchuk.tickets.dao" entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
 </beans>

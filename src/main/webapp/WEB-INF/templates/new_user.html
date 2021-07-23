@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>User</title>
+    <p><a href="/">
+        <button type="submit">Back</button>
+    <p></a></p>
 </head>
 <body>
 
@@ -13,8 +15,6 @@
         <span class="navbar-brand mb-0 h1" th:text="${method}">User create</span>
     </div>
 </nav>
-
-
 
 <section>
     <form th:action="@{/create}" th:method="get">
@@ -28,11 +28,6 @@
     </form>
 </section>
 
-
-<footer>
-    <hr/>
-    <p class="container-xl">&copy;Created by Artsiom Prokharau 2021</p>
-</footer>
 
 </body>
 </html>

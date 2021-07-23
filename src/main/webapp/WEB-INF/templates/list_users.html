@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta content="text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>User</title>
+
+    <style>
+        /* внешние границы таблицы серого цвета толщиной 1px */
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+            font-size: 13px;
+            font-weight: normal;
+            background: #b9c9fe;
+            color: #039;
+            padding: 8px;
+            border: 1px solid grey;
+        }
+        td {
+            background: #e8edff;
+            color: #669;
+            padding: 8px;
+            border: 1px solid grey;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+
+<header>
+    <div>
+        <button><a class="buttonAdd" href="/">Back</a></button>
+    </div>
+
+    <p></p>
+    <div>
+        <button><a class="buttonAdd" href="/new">Add User</a></button>
+    </div>
+    <p></p>
+
+</header>
+
+<section>
+    <div>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Top up an account</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="user : ${allUsers}" >
+                <td th:text="${user.getId()}">1</td>
+                <td th:text="${user.getName()}">Stacy</td>
+                <td th:text="${user.getEmail()}">stacy@gmail.com</td>
+                <td th:text="${user.getBalance()} ?: ' '">100</td>
+
+                <td>
+                    <form th:action="@{/money}" th:method="get">
+                        <div class="input-group mb-3">
+                            <input type="hidden" name = "id" th:value="${user.getId()}">
+                            <input type="number" name="add" class="form-control" placeholder="add">
+                            <a href="/money">
+                                <button type="submit">add money</button>
+                            </a>
+                        </div>
+                    </form>
+                </td>
+                <td>
+
+
+                    <form th:action="@{/spend}" th:method="get">
+                    <div class="input-group mb-3" >
+                        <input type="hidden" name = "id" th:value="${user.getId()}">
+                        <select type="number" name="cash" class="form-control" >
+                            <option value="50" selected="selected">STANDART</option>
+                            <option value="70" selected="selected">PREMIUM</option>
+                            <option value="15" selected="selected">LUX</option>
+                        </select>
+                        <a href="/spend">
+                            <button type="submit">Pay</button>
+                        </a>
+                    </div>
+                    </form>
+
+                </td>
+
+                <td>
+                    <a class="aEdit" th:href="@{/update/{id}(id=${user.getId})}">Update</a>
+                    <a class="aDelete" th:href="@{/delete/{id}(id=${user.getId})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+
+
+</body>
+</html>
